@@ -30,7 +30,7 @@ public class PrimaryController {
 		str = replace(regex,str,"<ol>");
 		regex = "\\\\end\\{enumerate}";
 		str = replace(regex,str,"</ol>");
-		str = str.replace("{\\toi}", "{1:NM:=}");
+		str = str.replace("{\\toi}", "{1:NM:=1}");
 		str = str.replace("\\item", "<li>");
 		str = replace("\\[label.+?\\]",str,"");
 		str = replace("\\\\ban\\{.+?}",str,"");
@@ -38,17 +38,9 @@ public class PrimaryController {
 		str =replace(regex,str,"<table>");
 		regex = "\\\\end\\{tabular}";
 		str = replace(regex,str,"</table>");
-    	//{\bf ***} を <b>***</b> に置き換える
-		regex = "\\{\\\\bf.+?}";
-		Pattern p = Pattern.compile(regex);
-		Matcher m = p.matcher(str);
-		while(m.find()) {
-			String subStr = m.group();
-			subStr = subStr.replace("{\\bf", "<b>");
-			subStr = subStr.replace("}", "</b>");
-			//System.out.println(subStr);
-			str = replace(regex,str,subStr);
-		}
+    	regex = "\\$.+?\\$";
+    	str =str.replaceAll(" (\\$.+?\\$)", "\\\\($1\\\\)");
+    	str = str.replaceAll("\\$", "");
     	modArea.setText(str);
     }
     //
