@@ -37,7 +37,19 @@ public class PrimaryController {
 		str = str.replace("{\\toi}", "{1:NM:=1}");
 		str = str.replace("\\item", "<li>");
 		str = replace("\\[label.+?\\]",str,"");
-		str = replace("\\\\ban\\{.+?}",str,"");
+		//
+		regex ="\\\\ban\\{.+?}";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(str);
+		while(m.find()) {
+			String subStr =m.group();
+			String newStr =subStr.replace("\\ban{", "");
+			newStr = newStr.replace("}", "");
+			//System.out.println(newStr);
+			//newStr = "."+newStr;
+			str = str.replace(subStr, newStr+".");
+		}
+		//str = replace("\\\\ban\\{.+?}",str,"");
 		regex = "\\\\begin\\{tabular}\\{.+?}";
 		str =replace(regex,str,"<table><caption><b>選択肢</b></caption>\n<tr>\n<td>");
 		regex = "\\\\end\\{tabular}";
@@ -48,6 +60,8 @@ public class PrimaryController {
     	str =str.replaceAll("(\\$.+?\\$)", "\\\\($1\\\\)");
     	str = str.replaceAll("\\$", "");
     	str = str.replaceAll("&","</td><td>");
+    	//
+    	
     	modArea.setText(str);
     }
     //
