@@ -1,5 +1,7 @@
 package com.genSci.tools.MoodleClozeHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,12 +37,22 @@ public class PrimaryController {
 		regex = "\\\\end\\{description}";
 		str = replace(regex,str,"</ul>");
 		str = str.replace("{\\toi}", "{1:NM:=1}");
+		//\item から改行コードまでを取り出す。
+		//どうやら "\\item(.+?)\n"という表現は機能しないので、\item を<li>に替えておく
 		str = str.replace("\\item", "<li>");
+		regex = "<li>(.+?)\n";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(str);
+		List<String> questionList = new ArrayList<String>();
+		while(m.find()) {
+			String str = m.group(1);
+			questionList.add(str);
+		}
 		str = replace("\\[label.+?\\]",str,"");
 		//
 		regex ="\\\\ban\\{.+?}";
-		Pattern p = Pattern.compile(regex);
-		Matcher m = p.matcher(str);
+		p = Pattern.compile(regex);
+		m = p.matcher(str);
 		while(m.find()) {
 			String subStr =m.group();
 			String newStr =subStr.replace("\\ban{", "");
