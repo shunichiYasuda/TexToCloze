@@ -19,7 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
     	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("primary.fxml"));
         scene = new Scene(root);
-        stage.setTitle("Moodle 穴埋め問題：数値コード支援");
+        stage.setTitle("Tex →Moodle穴埋め問題");
         stage.setScene(scene);
         stage.show();
     }
