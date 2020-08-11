@@ -20,7 +20,7 @@
       <ToolBar layoutY="222.0" prefHeight="40.0" prefWidth="600.0">
         <items>
             <Button mnemonicParsing="false" onAction="#clearModArea" text="Clear" />
-            <Button mnemonicParsing="false" text="Copy" />
+            <Button mnemonicParsing="false" onAction="#copyToClipboard" text="Copy" />
         </items>
       </ToolBar>
       <TextArea fx:id="modArea" layoutY="262.0" prefHeight="231.0" prefWidth="600.0" />
